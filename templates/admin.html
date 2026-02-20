@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Add Team</h2>
+<form method="post" action="/add_team">
+<input name="name" placeholder="Team Name">
+<input name="manager" placeholder="Manager">
+<input name="player1" placeholder="Player 1">
+<input name="player2" placeholder="Player 2">
+<input name="player3" placeholder="Player 3">
+<input name="sub1" placeholder="Sub 1">
+<input name="sub2" placeholder="Sub 2">
+<button>Add Team</button>
+</form>
+
+<h2>Edit Teams</h2>
+{% for t in teams %}
+<div class="card">
+{{t.name}}
+<a href="/edit_team/{{t.id}}">Edit</a>
+</div>
+{% endfor %}
+
+<h2>Create Match</h2>
+<form method="post" action="/add_match">
+<select name="team1">
+{% for t in teams %}<option>{{t.name}}</option>{% endfor %}
+</select>
+
+<select name="team2">
+{% for t in teams %}<option>{{t.name}}</option>{% endfor %}
+</select>
+
+<input name="date" placeholder="Date + Time">
+
+<select name="type">
+<option value="league">League Match</option>
+<option value="major">Major Match</option>
+<option value="shield">Shield Match</option>
+<option value="friendly">Friendly Match</option>
+</select>
+
+<button>Create Match</button>
+</form>
+
+<h2>Enter Results</h2>
+{% for m in matches %}
+<div class="card">
+{{m.team1}} vs {{m.team2}} ({{m.date}})
+<form method="post" action="/set_result/{{m.id}}">
+<input name="score1">
+<input name="score2">
+<button>Submit</button>
+</form>
+</div>
+{% endfor %}
+
+<a href="/wipe">WIPE SEASON</a>
+
+{% endblock %}

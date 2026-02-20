@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Edit Team</h2>
+
+<form method="post">
+<input name="name" value="{{team.name}}">
+<input name="manager" value="{{team.manager}}">
+<input name="player1" value="{{team.player1}}">
+<input name="player2" value="{{team.player2}}">
+<input name="player3" value="{{team.player3}}">
+<input name="sub1" value="{{team.sub1}}">
+<input name="sub2" value="{{team.sub2}}">
+<button>Save</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="tabs">
+<a href="/?tab=standings">Standings</a>
+<a href="/?tab=upcoming">Upcoming Matches</a>
+<a href="/?tab=results">Results</a>
+<a href="/?tab=major">Major</a>
+<a href="/?tab=shield">Shield</a>
+<a href="/?tab=friendly">Friendly's</a>
+</div>
+
+{% if tab=="standings" %}
+<h2>Standings</h2>
+<table>
+<tr><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>Pts</th></tr>
+{% for team,data in table %}
+<tr>
+<td>{{team}}</td>
+<td>{{data.played}}</td>
+<td>{{data.wins}}</td>
+<td>{{data.draws}}</td>
+<td>{{data.losses}}</td>
+<td>{{data.points}}</td>
+</tr>
+{% endfor %}
+</table>
+{% endif %}
+
+{% if tab=="upcoming" %}
+<h2>Upcoming Matches</h2>
+{% for m in upcoming %}
+<div class="card">
+{{m.team1}} vs {{m.team2}} — {{m.date}} <small>BO5</small>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if tab=="results" %}
+<h2>League Results</h2>
+{% for m in league_results %}
+<div class="card">
+{{m.team1}}
+<span class="{{'winner' if m.score1>m.score2 else 'loser'}}">{{m.score1}}</span>
+-
+<span class="{{'winner' if m.score2>m.score1 else 'loser'}}">{{m.score2}}</span>
+{{m.team2}} <small>League</small>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if tab=="major" %}
+<h2>Major Results</h2>
+{% for m in major_results %}
+<div class="card">{{m.team1}} {{m.score1}} - {{m.score2}} {{m.team2}} <small>Major</small></div>
+{% endfor %}
+{% endif %}
+
+{% if tab=="shield" %}
+<h2>Shield Results</h2>
+{% for m in shield_results %}
+<div class="card">{{m.team1}} {{m.score1}} - {{m.score2}} {{m.team2}} <small>Shield</small></div>
+{% endfor %}
+{% endif %}
+
+{% if tab=="friendly" %}
+<h2>Friendly Results</h2>
+{% for m in friendly_results %}
+<div class="card">{{m.team1}} {{m.score1}} - {{m.score2}} {{m.team2}} <small>Friendly</small></div>
+{% endfor %}
+{% endif %}
+
+{% endblock %}
